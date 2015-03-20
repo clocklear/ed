@@ -163,18 +163,20 @@ function setupToolbar(me) {
   createButton('ol', 'Ordered List');
   createButton('h2', 'Heading');
 
-  var fileInput = createFileInput();
-  createButton('img', 'Insert an image', function() {
-    fileInput.onchange = function(e) {
-      var files = fileInput.files;
-      for (var i = 0; i < files.length; i++) {
-        (function(file) {
-          me.upload(file);
-        })(files[i]);
-      }
-    };
-    fileInput.click();
-  });
+  if (me.options.allowUpload !== false) {
+    var fileInput = createFileInput();
+    createButton('img', 'Insert an image', function() {
+      fileInput.onchange = function(e) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {
+          (function(file) {
+            me.upload(file);
+          })(files[i]);
+        }
+      };
+      fileInput.click();
+    });
+  }
 
   function linky(e) {
     if (!e.keyCode || e.keyCode === 13) {
